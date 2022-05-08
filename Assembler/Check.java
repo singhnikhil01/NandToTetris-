@@ -11,19 +11,30 @@ public class  Check {
            String comp="";
            String jump="";
           // String binaryvalue="";
-       if(line.startsWith("@") ) // then this is the Address @ star
+          
+       if(line.startsWith("@") )
        {
-        String x =line.split("@")[1];
-    
-        variable_symbol.find(x);
         
-        }
-        /*else if(line.startsWith("(") & line.endsWith(")") )
-        {
-           // Binaryout.binary(0);
-           Binaryout.binary(i); 
-           //System.out.println(line+" "+i);
-         } */
+         line =line.split("@")[1];
+        //System.out.println(line);
+        //this is a digit
+         if(Character.isDigit(line.charAt(0)))
+         {
+          //System.out.println("int");
+          Binaryout.binary(line); 
+         }
+         //this is for symbols , characters 
+         else if(!Character.isDigit(line.charAt(0)))
+          {
+            //System.out.println("sym");
+            int value = Symbol_table.getvalue(line);
+            Binaryout.binary(value);
+            
+          }
+           //
+          }
+          
+       
        else if(line.matches("[A-Z]+=[A-Z!+&-|]+;[A-Z]{3}") )
        {
          System.out.print(line);

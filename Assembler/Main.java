@@ -1,15 +1,15 @@
 import java.io.FileNotFoundException;
 
-public class Main
-{
-    public static void main(String[] args) throws FileNotFoundException 
-    {
-        ReadWrite.delete();
-        ReadWrite.Read("Max.asm");
-        //System.out.println(Labe.label());
-        //Labe.label();
+public class Main 
+ {
+     static String name;
+     public static void main(String[] args) throws FileNotFoundException 
+     {
+       String filename ="Add.asm";
+       Hashing.scan(filename);
+       ReadWrite.Read(filename);
+       //System.out.println("Hello world");
+     }
+    
+} 
 
-        
-    }
-
-}

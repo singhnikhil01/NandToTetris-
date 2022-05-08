@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.Scanner;
 public class ReadWrite
 {
+  static String name = "generate.hack";
     public String data;
 
     //This method will read the file
@@ -11,7 +12,6 @@ public class ReadWrite
         Scanner scan = new Scanner(fis);
             while(scan.hasNextLine())
             { 
-              
               if(scan.hasNext("//"))
               {
                  scan.nextLine();
@@ -19,8 +19,7 @@ public class ReadWrite
               else 
               {
                String line = (scan.next());
-               //System.out.println(line+i);
-               //Send to check whether the line is variable , Symbols , labels or computation
+               //System.out.println(line);
                Check.check(line);
              } 
             };
@@ -29,11 +28,13 @@ public class ReadWrite
      //Creating a new asm file and saving everything in the file 
   public static void save(String data)
   { 
-    File asmfile = new File ("generate.hack");
+    //System.out.println(data);
+    
+    File asmfile = new File (name);
     if(asmfile.exists())
       {
         try {
-        FileWriter fr = new FileWriter("generate.hack",true);
+        FileWriter fr = new FileWriter(name,true);
          PrintWriter pw = new PrintWriter(fr);
          pw.println();
          pw.print(data);
@@ -52,7 +53,7 @@ public class ReadWrite
       e.printStackTrace();
      }
      try {
-      FileWriter fr = new FileWriter("generate.hack");
+      FileWriter fr = new FileWriter(name);
       PrintWriter pw = new PrintWriter(fr);
       pw.print(data);
       pw.close();
@@ -63,7 +64,7 @@ public class ReadWrite
 }
 public static void delete()
 {
-  File file = new File("generate.hack");
+  File file = new File(name);
   file.delete();
 }
 }
