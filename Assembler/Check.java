@@ -21,14 +21,14 @@ public class  Check {
          if(Character.isDigit(line.charAt(0)))
          {
           //System.out.println("int");
-          Binaryout.binary(line); 
+          Binary_out.binary(line); 
          }
          //this is for symbols , characters 
          else if(!Character.isDigit(line.charAt(0)))
           {
             //System.out.println("sym");
             int value = Symbol_table.getvalue(line);
-            Binaryout.binary(value);
+            Binary_out.binary(value);
             
           }
            //
@@ -42,20 +42,20 @@ public class  Check {
           String x = line.split("=")[1];
           comp = x.split(";")[0];
           jump = x.split(";")[1];
-          Binaryout.getbinary(comp, dest, jump);
+          Binary_out.getbinary(comp, dest, jump);
        }
        else if (line.matches("[A-Z]+=[A-Z!+&-|]+"))
        {
            dest = line.split("=")[0];
            comp = line.split("=")[1];
-           Binaryout.getbinary(comp, dest, jump);
+           Binary_out.getbinary(comp, dest, jump);
 
        }
        else if ( line.matches("[A-Z!+&-|]+;[A-Z]{3}"))
        {
           comp = line.split(";")[0];
           jump = line.split(";")[1];
-          Binaryout.getbinary(comp, dest, jump);  
+          Binary_out.getbinary(comp, dest, jump);  
        
      }
     }

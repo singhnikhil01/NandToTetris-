@@ -2,7 +2,7 @@ import java.util.Arrays;
 import java.util.List;
 
 //it will change address to binary
-public class Binaryout {
+public class Binary_out {
     public static void binary (String data)
     {
         int a = Integer.parseInt(data);

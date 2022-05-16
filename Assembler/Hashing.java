@@ -25,55 +25,13 @@ public static void savesymbol()
                 
             }
         }
-    
-   public static void scan(String filename) throws FileNotFoundException 
-    {   
-         savesymbol();
-        FileInputStream file = new FileInputStream(filename);
-        try (Scanner scan = new Scanner(file)) {
-            while(scan.hasNextLine())
-            {
-                if(scan.hasNext("//"))
-                {
-                    scan.nextLine();
-                }
-                else
-                {
-                    String line = scan.nextLine();
-                    //System.out.println(line);
-                    if (line.contains("@")) { // A-instruction
-                        String x = line.trim();
-                        line = x.split("@")[1]; 
-                        //System.out.println(line);
-                        find(line,filename);
-                    }
-                } 
-
-            }
-            }
-            }
-            //System.out.println();
-        
-               
-
-
-     //Check if already a symbol or varialble 
-     public static  void find(String line,String filename) throws FileNotFoundException
-     {
-        List<String> list = Arrays.asList(symbol);
-         if(!(list.contains(line) & Character.isDigit(line.charAt(0))))
-         {
-            label(line,filename);
-
-         }
-      
-
-     }
 
      //check if label and if label put value 
-     public static void label(String data,String filename) throws FileNotFoundException 
+     public static void scan(String filename) throws FileNotFoundException 
     {
-         int x =  -1;
+        savesymbol();
+         int x =  1;
+         System.out.println("hello");
         FileInputStream file = new FileInputStream(filename);//here we should enter the file name
         try (Scanner scan = new Scanner(file)) {
             
@@ -86,19 +44,22 @@ public static void savesymbol()
               else 
               {
                 String line = scan.nextLine();
+                //System.out.println(line);
                 if(!(line.contains("(")))
                 {
                     x++;
                 }
                 else if(line.startsWith("(") & line.endsWith(")") )
                 {
+                   
                  Matcher m = Pattern.compile("\\((.*?)\\)").matcher(line);
                  while (m.find()) {
                       String label = m.group(1);
                       String y = Integer.toString(x);
                       Symbol_table.Map(label, y);
-                      break;
                       //System.out.println(label+"="+y);
+                      break;
+                      
                  }
                 
             }
@@ -107,13 +68,6 @@ public static void savesymbol()
 
     }
 }
-                 if (!Character.isDigit(data.charAt(0)) & !Symbol_table.intable(data) )
-                    {
-                        String k = Integer.toString(j);
-                        Symbol_table.Map(data,k );
-                        j++;
-           
-                    }
                    
                 }
 

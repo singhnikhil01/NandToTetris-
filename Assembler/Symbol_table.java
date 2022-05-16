@@ -20,7 +20,7 @@ public class Symbol_table
        
         if(!(map.containsKey(key)))
         {
-          //System.out.println(key+"="+value);
+          System.out.println(key+"="+value);
           map.put(key, value);
         }
 
