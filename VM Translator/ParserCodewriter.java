@@ -3,7 +3,7 @@ import java.io.*;
 import java.util.Scanner;
 public class ParserCodewriter
 {
-     static String name = "generate.vm";
+     static String name = "generate.asm";
     //This method will read the file
     public  void Read(String filename) throws FileNotFoundException
     {
@@ -19,7 +19,7 @@ public class ParserCodewriter
               else 
               {
                String line = (scan.nextLine());
-               Function.check(line,filename);
+               Functions.check(line,filename);
                 
              } 
             };

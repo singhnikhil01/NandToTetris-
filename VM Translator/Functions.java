@@ -1,16 +1,20 @@
-public class Function 
+public class Functions 
 {
     public static void check(String line,String name) 
     {
         if(line.equals("add") || line.equals("sub"))
         {
+            //ParserCodewriter pr = new ParserCodewriter();
+            //pr.save(line);
+            //System.out.println(line);
             add_sub(line);
 
         }
 
         else
          {
-            //System.out.println(line);
+            //ParserCodewriter pr = new ParserCodewriter();
+            //pr.save(line);
             String []x = line.split(" ");
             String y = x[1];
             switch(y)
@@ -135,16 +139,21 @@ public class Function
                 String []x = line.split(" ");
                 ParserCodewriter par = new ParserCodewriter();
                 StringBuilder sb = new StringBuilder();
-                sb.append("@");
-                sb.append(x[2]);
+                String t = "@"+x[2];
+                String u = null;
+                
+                sb.append(t);
+                //sb.append();
                 sb.append("\nD=A\n");
                 if(x[1].equals("local"))
              {
-                sb.append("@LCL");
-                sb.append("\nD=D+M\n");
+                 
+                sb.append("@LCL\n");
+                sb.append("D=D+M\n");
             }
                 if(x[1].equals("argument"))
             {
+                
                 sb.append("@ARG\n");
                 sb.append("D=D+M\n");
             }
@@ -155,12 +164,13 @@ public class Function
             }
                 if(x[1].equals("that"))
             {
+               
                 sb.append("@THAT\n");
                 sb.append("D=D+M\n");
             }
                 if(x[1].equals("temp"))
             {
-                sb.append("@TEMP\n");
+                sb.append("@5\n");
                 sb.append("D=D+A\n");
             }
             if(line.contains("push")){
@@ -175,13 +185,13 @@ public class Function
             }
     
             else if(line.contains("pop")){
-                sb.append("@R15\n");
-                sb.append("M=D\n");
+                sb.append("@R15");
+                sb.append("\nM=D\n");
                 sb.append("@SP\n");
                 sb.append("AM=M-1\n");
                 sb.append("D=M\n");
-                sb.append("@R15\n");
-                sb.append("A=M\n");
+                sb.append("@R15");
+                sb.append("\nA=M\n");
                 sb.append("M=D");
             }
     
