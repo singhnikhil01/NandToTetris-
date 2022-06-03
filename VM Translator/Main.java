@@ -4,7 +4,10 @@ public class Main
 {
     public static void main(String[] args) throws FileNotFoundException 
     {
-        ReadWrite.Read("BasicTest.vm");
+       String filename = "C:\\Users\\Singh Sansar\\OneDrive\\Desktop\\Singh\\NandToTetris-\\VM Translator\\BasicTest.vm";
+       ParserCodewriter par = new ParserCodewriter();
+       par.delete();
+       par.Read(filename);
         
     }
     
