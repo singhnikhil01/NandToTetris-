@@ -1,6 +1,6 @@
 public class ArithmeticLogical 
 {
-    //static int num = 0;
+    static int num = 0;
     public static void Arithmetic_op(String line){
         StringBuilder sb = new StringBuilder();
         ParserCodewriter par = new ParserCodewriter();
@@ -9,7 +9,7 @@ public class ArithmeticLogical
            
             sb.append("@SP\n");
             sb.append("M=M-1\n");
-            sb.append("A=M\n");
+            sb.append("A=M\n");        
             sb.append("D=M\n");
             sb.append("@SP\n");     
             sb.append("A=M\n");
@@ -18,15 +18,26 @@ public class ArithmeticLogical
         else
         {
         sb.append("@SP\n");
-        sb.append("AM=M-1\n");
+        sb.append("A=M\n");
+        sb.append("A=A-1\n");
         sb.append("D=M\n");
-        sb.append("@SP\n");
-        sb.append("AM=M-1\n");
+        sb.append("A=A-1\n");
         
-        if(line.equals("add"))
-            sb.append("M=M+D\n");
+        if(line.equals("add"))   
+       { sb.append("D=M+D\n");
+         sb.append("@SP\n");
+         sb.append("M=M-1\n");
+         sb.append("M=M-1\n");
+         sb.append("A=M\n");
+         sb.append("M=D\n");}
         else //for sub
-        sb.append("M=M-D\n");
+        {sb.append("D=M-D\n");
+        sb.append("@SP\n");
+        sb.append("M=M-1\n");
+        sb.append("M=M-1\n");
+        sb.append("A=M\n");
+        sb.append("M=D\n");}
+        
         }
         sb.append("@SP\n");
         sb.append("M=M+1");
@@ -37,12 +48,10 @@ public class ArithmeticLogical
 
     public static void Relational_op(String line)
     {
-        int num = 0;
-        //"@SP","A=M", "A=A-1","D=M","A=A-1","D=M-D","@SP", "M=M-1", "M=M-1","@w"+"."+ew, "D;JEQ" ,  "@SP", "A=M", "M=0", "@END"+"."+ew, "0;JMP","(w"+"."+ew+")","@SP","A=M","M=-1","(END"+"."+ew+")","@SP","M=M+1"          
         StringBuilder sb = new StringBuilder();
         ParserCodewriter par = new ParserCodewriter();
         String Start_label =  line+"_"+num;
-        String End_label ="END_"+num;
+        String End_label ="END_line"+num;
         num = num+1;
         sb.append("@SP\n");
         sb.append("A=M\n");
@@ -56,11 +65,11 @@ public class ArithmeticLogical
         sb.append("@"+Start_label+"\n"); 
 
         if(line.equals("gt"))
-             sb.append("D;JEQ\n");
+             sb.append("D;JGT\n");
         else if(line.equals("lt"))
             sb.append("D;JLT\n"); 
         else if(line.equals("eq"))
-            sb.append("D;JGT\n");  
+            sb.append("D;JEQ\n");  
 
          sb.append("@SP\n");
          sb.append("A=M\n");

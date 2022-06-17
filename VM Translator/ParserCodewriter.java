@@ -3,11 +3,14 @@ import java.io.*;
 import java.util.Scanner;
 public class ParserCodewriter
 {
-     static String name = "generate.asm";
+
+   String name="generate.asm";
+ 
+     
     //This method will read the file
     public  void Read(String filename) throws FileNotFoundException
     {
-        System.out.println(filename);
+        //System.out.println(filename);
         FileInputStream fis = new FileInputStream(filename);
         Scanner scan = new Scanner(fis);
             while(scan.hasNextLine())
@@ -19,7 +22,6 @@ public class ParserCodewriter
               else 
               {
                String line = (scan.nextLine());
-               System.out.println(line);
                Functions.check(line,filename);
                
                 
