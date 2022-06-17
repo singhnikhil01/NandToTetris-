@@ -19,7 +19,9 @@ public class ParserCodewriter
               else 
               {
                String line = (scan.nextLine());
+               System.out.println(line);
                Functions.check(line,filename);
+               
                 
              } 
             };
