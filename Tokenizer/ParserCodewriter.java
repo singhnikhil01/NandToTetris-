@@ -1,36 +1,42 @@
 //This module will read and write the files.
+//package Tokenizer;
 import java.io.*;
 import java.util.Scanner;
 public class ParserCodewriter
 {
 
-   String name="generate.asm";
+  static String name="generate.XML";
  
      
     //This method will read the file
     public  void Read(String filename) throws FileNotFoundException
     {
         //System.out.println(filename);
+        //String preocessed_line = " ";
         FileInputStream fis = new FileInputStream(filename);
         Scanner scan = new Scanner(fis);
+        save("<tokens>");;
             while(scan.hasNextLine())
             { 
-              if(scan.hasNext("//"))
+              if(scan.hasNext("//")   || scan.hasNext("///") || scan.hasNext("/*"))
               {
+              
                  scan.nextLine();
               }
               else 
               {
-               String line = (scan.nextLine());
-               Functions.check(line,filename);
-               
-                
+                String line = (scan.nextLine());
+                if((!line.contains("/*") && !line.contains("/**"))&& !line.contains("**\\"))
+                {
+                  Tokenizer.distiguish(line);
+                }
+          
              } 
             };
+            save("</tokens>");
             scan.close();
-           }
-     //Creating a new asm file and saving everything in the file 
-     public void save(String data)
+          }
+     public static void save(String data)
    { 
      File asmfile = new File (name);
      if(asmfile.exists())
@@ -63,10 +69,5 @@ public class ParserCodewriter
        e.printStackTrace();
      }
    } 
- }
- public  void delete()
- {
-   File file = new File(name);
-   file.delete();
  }
 }

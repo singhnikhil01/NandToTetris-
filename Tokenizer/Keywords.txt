@@ -1,0 +1,96 @@
+import java.util.Arrays;
+import java.util.List;
+import java.util.Stack;
+import java.util.ArrayList;
+public class Tokenizer 
+{
+    static Stack<String> stack = new Stack<String>();
+   static  List<Character> list = Arrays.asList('{','}',',','(',')','[',']','.','=',';','+','-','*','/','&','|','>','<','~');
+   static List<String> key = Arrays.asList("class","constructor","method" ,"Program", "components","int", 
+   "boolean", "char", "void", "var", "static", "let", "do", "if", "else", "while", "return" ,"true", "false", "null", 
+   "this","field");
+    //static List<String> iden = Arrays.asList("x","y");
+    static ArrayList<String> arr1 = new ArrayList<String>();
+    static boolean word = true; 
+
+                                                                                             
+    public static void distiguish(String line)
+    { 
+        // if (line.contains("constructor") || line.contains("method"))
+        // {
+        //     if(line.contains("constructor"))
+        //     ParserCodewriter.save("</classVarDec>");
+        //      ParserCodewriter.save("<subrotineDec>");
+        // }
+        
+        String [] arr = line.split(" ");
+        for(int i=0 ; i<arr.length;i++)
+        {
+            String x = arr[i];
+            //Distiguish identifiers 
+            if(x.startsWith("_") || x.matches("\\b([A-Z]\\w*)\\b") ) 
+             ParserCodewriter.save("<identifier>"+ x +"</identifier>");
+
+             if(x.equals("field") && word )
+            {
+             ParserCodewriter.save("<classVarDec>");
+             word = false;
+            }
+            else if(x.equals("field"))
+            {
+                ParserCodewriter.save("</classVarDec>");
+                ParserCodewriter.save("<classVarDec>");
+                word=true;
+                arr1.clear();
+            }
+
+            //Distiguish keywords 
+            if(key.contains(x) && (!arr1.contains(x)))
+            {ParserCodewriter.save("<keyword>"+ x +"</keyword>");
+                arr1.add(x);    
+            }
+
+          }
+
+          if(line.contains("int")||line.contains("boolean")||line.contains("char"))
+          {
+              
+              
+          }
+          
+ 
+        for(int i=0 ; i<line.length();i++)
+        {
+            char x = line.charAt(i);
+            if(list.contains(x))
+                 ParserCodewriter.save("<symbol>"+ line.charAt(i)+"</symbol>");
+                
+            }
+        
+    }
+    
+}
+ public static void handelstring(String data)
+    {
+      if(data.startsWith(k))
+      {
+        string = data.substring(1);
+        System.out.println(string);
+      }
+      else
+      {
+        string = string+data.substring(1);
+
+      }
+
+    }
+
+    if(data.startsWith(k))
+            {
+              handelstring(data);
+              return;
+            }
+            else if(data.endsWith(k))
+            {
+              handelstring(data);
+            }
