@@ -1,90 +1,87 @@
 import java.util.Arrays;
 import java.util.List;
-import java.util.Stack;
+
 public class Tokenizer 
 {
-    static char z = '"';
-    static String k = ""+z; 
-    static String string = "";
-    static boolean con = true ;
-    static Stack<String> stack = new Stack<String>();
-    static  List<Character> list = Arrays.asList('{','}',',','(',')','[',']','.','=',';','+','-','*','/','&','|','>','<','~');
+   
+  static  List<String> symbols = Arrays.asList("{","}",",","(",")","[","]",".","=",";","+","-","*","/","&","|",">","<","~");
    static List<String> key = Arrays.asList("class","constructor","method" ,"Program", "components","int", 
    "boolean", "char", "void", "var", "static", "let", "do", "if", "else", "while", "return" ,"true", "false", "null", 
    "this","field","function");
-   static List<String> identifier  = Arrays.asList("new");
                                                                                  
     public static void distiguish(String line)
-    { 
-      if(line.contains("//"))
-        line = line.split("//")[0];
-        String [] arr = line.split("[\\s]");
-        for(int i=0 ; i<arr.length;i++) 
-        {
-          
-           if(arr[i].contains(k)&&!con)
-            {
-              System.out.println(arr[i]);
-              string = string+arr[i];
-              String abc = string.substring(1, string.length()-2);
-              ParserCodewriter.save("<stringConstant>"+ abc +"</stringConstant>");
-              ParserCodewriter.save("<symbol>"+string.charAt(string.length()-1)+"</symbol>"); 
-              con = true;
-              
-            }
-           else if(arr[i].startsWith(k))
-          {
-            System.out.println(arr[i]);
-            string = string +arr[i]+" ";
-            con = false;
-            
-            }
-            else if(con)
-            converter(arr[i]);
-        }
-          
-    }
-    public static void converter(String line)
     {
+      line = line.split("//")[0];
+      System.out.println(line);
+      int length = line.length();
       String word = "";
-      for(int i=0 ; i<line.length();i++)
-      {
-
-        char x = line.charAt(i);
-        String y = word+x ;
-       
-        if(!list.contains(x))
-        word = word+x ;
-
-        if(i==line.length()-1 || list.contains(x))
-        {
-          checkword(word);
-          word = "";
-        }
-
-        if(list.contains(x))
-        ParserCodewriter.save("<symbol>"+line.charAt(i)+"</symbol>"); 
-        
-            
-        }
-       
-      }
-    
-
-    public static void checkword(String data)
-    {
-          if(data.matches("[0-9]+"))
-          {ParserCodewriter.save("<integerConstant>"+ data+"</integerConstant>");
-          return;}
-          if(key.contains(data))
-          ParserCodewriter.save("<keyword>"+ data +"</keyword>");
-          else if(!key.contains(data)) // (data.startsWith("_") || data.matches("\\b([A-Z]\\w*)\\b") || identifier.contains(data) )
-        {
-          if(data !="")
-          ParserCodewriter.save("<identifier>"+ data +"</identifier>");
+      //reading each letter form the line
+      for (int i = 0; i < length; i++) {
+        String s = Character.toString(line.charAt(i));
+        //For String Constant
+        if (s.equals("\"")) {
+            String some = s;
+            i++;
+            s = Character.toString(line.charAt(i));
+            while (!(s.equals("\""))) {
+                s = Character.toString(line.charAt(i));
+                i++;
+                some = some + s;
+            }
+            i--;
+            ParserCodewriter.save(CodeWriter(some));
+        //To break word if symbol or space comes
+        } else if (symbols.contains(s) || line.charAt(i) == ' ') {
+            if (word != "")
+            ParserCodewriter.save(CodeWriter(word));
+            if (symbols.contains(s)) {
+              ParserCodewriter.save(CodeWriter(s));
+            }
+            word = "";
+        } else {
+            word = word + s;
         }
     }
-   
+
+}
+
+public static String token(String token) {
+
+  // if it is a digit
+  if (token.matches("[0-9]+")) {
+      return "integerConstant";
   }
+  // if it is a symbol
+  else if (symbols.contains(token)) {
+      return "symbol";
+  }
+  // if it is a string
+  else if (token.matches("\"[^\"\n]*\"")) {
+      return "stringConstant";
+  }
+  // if it is a keyword
+  else if (key.contains(token)) {
+      return "keyword";
+  }
+  // if it is an identifier
+  else if (token.matches("[\\w_]+")) {
+      return "identifier";
+  }
+  return null;
+}
+
+public static String CodeWriter(String word) {
+  String s = Character.toString(word.charAt(0));
+  String token = token(word);
+//To remove " if word is String constant
+  if (s.equals("\"")) {
+    word = word.substring(1, word.length() - 1);
+                                          }
+     String out = "<" + token + "> " + word + " </" + token + ">";
+    return out;
+}
+  
+}
+
     
 

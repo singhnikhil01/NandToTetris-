@@ -30,7 +30,6 @@ public class ParserCodewriter
                 {
                   Tokenizer.distiguish(line);
                 }
-          
              } 
             };
             save("</tokens>");
@@ -65,9 +64,19 @@ public class ParserCodewriter
        PrintWriter pw = new PrintWriter(fr);
        pw.print(data);
        pw.close();
-     } catch (IOException e) {
+     } catch (IOException e)
+      {
        e.printStackTrace();
      }
    } 
  }
+ //write a function to delete generate.xml file if it exists
+  public static void delete()
+  {
+    File asmfile = new File (name);
+    if(asmfile.exists())
+    {
+      asmfile.delete();
+    }
+  }
 }
